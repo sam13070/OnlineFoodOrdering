@@ -1,0 +1,43 @@
+﻿@model List<OnlineFoodOrderingDemo.Models.MenuItem>
+
+@{
+	ViewBag.Title = "結帳";
+	decimal total = 0;
+}
+
+<h2>🧾 結帳</h2>
+
+@if (!Model.Any())
+{
+	<p>目前購物車是空的。</p>
+}
+else
+{
+	<table border="1" cellpadding="5">
+		<tr>
+			<th>品項</th>
+			<th>介紹</th>
+			<th>數量</th>
+			<th>單價</th>
+			<th>小計</th>
+		</tr>
+		@foreach (var item in Model)
+		{
+			var subtotal = item.Price * item.Quantity;
+			total += subtotal;
+			<tr>
+				<td>@item.Name</td>
+				<td>@item.Description</td>
+				<td>@item.Quantity</td>
+				<td>@item.Price 元</td>
+				<td>@subtotal 元</td>
+			</tr>
+		}
+	</table>
+
+	<p><strong>總計：</strong> @total 元</p>
+	<p><a href="@Url.Action("Index", "Menu")">← 回菜單</a></p>
+	<div class="mt-4">
+		<a href="@Url.Action("ConfirmOrder", "Cart")" class="btn btn-success btn-lg">✅ 送出訂單</a>
+	</div>
+}

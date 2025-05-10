@@ -1,0 +1,51 @@
+﻿@model List<OnlineFoodOrderingDemo.Models.MenuItem>
+
+<h2>🛒 購物車</h2>
+
+@if (!Model.Any())
+{
+	<p>購物車是空的。</p>
+}
+else
+{
+	decimal total = 0;
+	<table border="1" cellpadding="5">
+		<tr>
+			<th>品項</th>
+			<th>介紹</th>
+			<th>數量</th>
+			<th>價格</th>
+			<th>操作</th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Name</td>
+				<td>@item.Description</td>
+				<td>
+					<a href="@Url.Action("Decrease", "Cart", new { id = item.Id })">➖</a>
+					@item.Quantity
+					<a href="@Url.Action("Increase", "Cart", new { id = item.Id })">➕</a>
+				</td>
+
+				<td>@(item.Price * item.Quantity) 元</td>
+				<td>
+					<a href="@Url.Action("Remove", "Cart", new { id = item.Id })" onclick="return confirm('確定要移除這項嗎？')">移除</a>
+				</td>
+			</tr>
+			total += item.Price * item.Quantity;
+		}
+	</table>
+
+	<p><strong>總計：</strong> @total 元</p>
+	<p><a href="@Url.Action("Clear", "Cart")">🗑 清空購物車</a></p>
+}
+
+<p><a href="@Url.Action("Index", "Menu")">← 返回菜單</a></p>
+<p>
+	<a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+		🧾 前往結帳
+	</a>
+</p>
+

@@ -1,0 +1,13 @@
+﻿@{
+	ViewBag.Title = "首頁";
+}
+
+<div style="text-align: center; margin-top: 100px;">
+	<h1 style="font-size: 48px; color: #ff6600;">🍜 歡迎使用線上訂餐系統 🍱</h1>
+	<p style="font-size: 20px; color: #555;">請透過上方導覽列進入「菜單」，開始瀏覽美味的餐點並加入購物車。</p>
+
+	<div style="margin-top: 40px;">
+		<a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Menu")">📋 查看菜單</a>
+		<a class="btn btn-secondary btn-lg" href="@Url.Action("Index", "Cart")" style="margin-left: 10px;">🛒 查看購物車</a>
+	</div>
+</div>
